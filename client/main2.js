@@ -1,5 +1,6 @@
 import { Template } from 'meteor/templating';
 import { Tasks } from '../api/tasks.js';
+import './task.js';
 import './main2.html';
 
  Template.body.helpers({
@@ -17,15 +18,11 @@ Template.body.events({
 
     event.preventDefault();
 
- 
-
     // Get value from form element
 
     const target = event.target;
 
     const text = target.text.value;
-
- 
 
     // Insert a task into the collection
 
@@ -36,8 +33,6 @@ Template.body.events({
       createdAt: new Date(), // current time
 
     });
-
- 
 
     // Clear form
 
