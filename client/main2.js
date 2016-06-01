@@ -4,6 +4,15 @@ import { Tasks } from '../api/tasks.js';
 import './task.js';
 import './main2.html';
 
+
+import { Accounts } from 'meteor/accounts-base';
+Accounts.ui.config({
+
+  passwordSignupFields: 'USERNAME_ONLY',
+
+});
+
+
 Template.body.onCreated(function bodyOnCreated() {
   this.state = new ReactiveDict();
 });
@@ -20,9 +29,7 @@ Template.body.onCreated(function bodyOnCreated() {
        return Tasks.find({}, { sort: { createdAt: -1 } });
   },
     incompleteCount() {
-
     return Tasks.find({ checked: { $ne: true } }).count();
-
   },
 });
 
@@ -47,7 +54,9 @@ Template.body.events({
       text,
 
       createdAt: new Date(), // current time
+      owner: Meteor.userId(),
 
+      username: Meteor.user().username,
     });
 
     // Clear form
@@ -56,7 +65,7 @@ Template.body.events({
 
   },
    'change .hide-completed input'(event, instance) {
-
+console.log(instance);
     instance.state.set('hideCompleted', event.target.checked);
 
   },
